@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: glshoop-gate
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.60.1:8848
+    gateway:
+      routes:
+        - id: test-route
+          uri: https://www.baidu.com
+#          断言 如果匹配了如下断言 则会转发到 uri: https://www.baidu.com 这个地址
+          predicates:
+            - Query=url,baidu
+
+        - id: product-route
+          uri: lb://glshoop-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/product/(?<segment>.*),/$\{segment}
+
+        - id: third-part-route
+          uri: lb://glshoop-third-part
+          predicates:
+            - Path=/api/thirdpart/**
+          filters:
+            - RewritePath=/api/thirdpart/(?<segment>.*),/$\{segment}
+
+        - id: member-route
+          uri: lb://glshoop-member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: coupon-route
+          uri: lb://glshoop-coupon
+          predicates:
+            - Path=/api/coupon/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: ware-route
+          uri: lb://glshoop-ware
+          predicates:
+            - Path=/api/ware/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        #renren-fast-vue 前端的请求路径重写
+        - id: admin-route
+          # lb://renren-fast 断言后路由平衡到 renren-fast项目名的某一个中去
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            #路径重写filter
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+
+server:
+  port: 88
+
+#ribbon config,Interval to refresh the server list from the source
+ribbon:
+  ServerListRefreshInterval: 3000

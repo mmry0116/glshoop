@@ -1,0 +1,40 @@
+#spring:
+#  application:
+#    name: glshoop-member
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: 192.168.91.1:8848
+#        namespace: db275fa4-f83a-4f59-a760-332ed0ead5f6
+#        file-extension: yml
+#        group: member
+#
+
+#多配置文件读取
+#ext-config 配置项表示额外文件配置
+#在该配置下的所有配置文件都会加载刀配置中
+#ext-config 配置了这个额外配置 也依旧会加载基础的配置
+# 如:     nacos:
+#           config:
+#             server-addr: 192.168.91.1:8848
+#             namespace: db275fa4-f83a-4f59-a760-332ed0ead5f6
+#             file-extension: yml
+#             group: member
+spring:
+  application:
+    name: glshoop-member
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.91.1:8848
+        namespace: db275fa4-f83a-4f59-a760-332ed0ead5f6
+        file-extension: yml
+        group: member
+        #注意可以跨组读取配置 但不能跨命名空间
+        ext-config:
+          - data-id: glshoop-member-friend.yml
+            group: DEFAULT_GROUP
+            refresh: true #动态刷新配置 默认为false
+          - data-id: glshoop-member-brother.yml
+            group: DEFAULT_GROUP
+            refresh: true

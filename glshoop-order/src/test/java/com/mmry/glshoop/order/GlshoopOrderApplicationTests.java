@@ -1,10 +1,14 @@
 package com.mmry.glshoop.order;
 
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GlshoopOrderApplicationTests {
+public class GlshoopOrderApplicationTests {
 
-
+    @Test
+    public void test() {
+        System.out.println("ssss");
+    }
 
 }

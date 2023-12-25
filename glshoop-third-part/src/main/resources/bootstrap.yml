@@ -1,0 +1,26 @@
+server:
+  port: 30000
+
+spring:
+  application:
+    name: glshoop-third-part
+#注册中心
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.60.1:8848
+      #配置中心
+      config:
+        server-addr: 192.168.60.1:8848
+        namespace: c61a91da-d673-4819-940b-5b50405f5599
+        ext-config:
+          - data-id: dev.yml
+            group: DEFAULT_GROUP
+            refresh: true
+
+    #    oss相关配置
+#    alicloud:
+#      access-key: LTAI5tFchf3nCZWskeU4gm2M
+#      secret-key: uW7xIp11Ui2tlOb5fm8hIXQtQ7Pb3P
+#      oss:
+#        endpoint: oss-cn-beijing.aliyuncs.com

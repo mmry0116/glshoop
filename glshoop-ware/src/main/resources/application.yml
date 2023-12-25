@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    username: root
+    password: '0228' #最好单引号包起来
+    url: jdbc:mysql://192.168.91.128:3306/glshoop_wms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  #nacos相关配置
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.60.1:8848
+        metadata:
+          preserved.heart.beat.interval: 1000 #该实例在客户端上报心跳的间隔时间。（单位:毫秒）
+          preserved.heart.beat.timeout: 3000 #该实例在不发送心跳后，从健康到不健康的时间。（单位:毫秒
+          preserved.ip.delete.timeout: 3000 #该实例在不发送心跳后，被nacos下掉该实例的时间。（单位:毫
+  application:
+    name: glshoop-ware
+  #格式化json日期转换格式
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto #主键自增
+
+server:
+  port: 12000
+
+logging:
+  level:
+    com.mmry.glshoop.ware: debug
